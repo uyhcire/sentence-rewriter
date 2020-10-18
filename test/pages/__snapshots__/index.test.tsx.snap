@@ -10,30 +10,113 @@ exports[`Home page matches snapshot 1`] = `
     >
       <h1
         class="jsx-2250570153 title"
+        style="padding-bottom: 40px;"
       >
-        Welcome to 
-        <a
-          class="jsx-2250570153"
-          href="https://nextjs.org"
-        >
-          Next.js!
-        </a>
+        In Other Words 📎
       </h1>
       <p
-        class="jsx-2250570153 description"
-      >
-        Get started by editing 
-        <code
-          class="jsx-2250570153"
-        >
-          pages/index.tsx
-        </code>
-      </p>
-      <button
         class="jsx-2250570153"
       >
-        Test Button
-      </button>
+        Press 
+        <strong
+          class="jsx-2250570153"
+        >
+          <kbd
+            class="jsx-2250570153"
+          >
+            Command + Quote
+          </kbd>
+        </strong>
+         to select a sentence
+        <br
+          class="jsx-2250570153"
+        />
+        Press 
+        <strong
+          class="jsx-2250570153"
+        >
+          <kbd
+            class="jsx-2250570153"
+          >
+            Command + Enter
+          </kbd>
+        </strong>
+         to rephrase it
+      </p>
+      <div
+        class="jsx-2250570153"
+        style="width: 100%; height: 500px; padding-top: 50px; padding-bottom: 50px;"
+      >
+        <div
+          style="border: solid; border-color: lightblue; width: 100%; height: 100%; padding: 10px;"
+        >
+          <div
+            contenteditable="true"
+            data-gramm="false"
+            data-slate-editor="true"
+            data-slate-node="value"
+            role="textbox"
+            style="outline: none; white-space: pre-wrap; word-wrap: break-word;"
+          >
+            <div
+              data-slate-node="element"
+              style="position: relative;"
+            >
+              <span
+                data-slate-node="text"
+              >
+                <span
+                  data-slate-leaf="true"
+                >
+                  <span
+                    data-slate-string="true"
+                  >
+                    This is good. But that is bad. And it's important that you know the difference.
+                  </span>
+                </span>
+              </span>
+            </div>
+            <div
+              data-slate-node="element"
+              style="position: relative;"
+            >
+              <span
+                data-slate-node="text"
+              >
+                <span
+                  data-slate-leaf="true"
+                >
+                  <span
+                    data-slate-length="0"
+                    data-slate-zero-width="n"
+                  >
+                    ﻿
+                    <br />
+                  </span>
+                </span>
+              </span>
+            </div>
+            <div
+              data-slate-node="element"
+              style="position: relative;"
+            >
+              <span
+                data-slate-node="text"
+              >
+                <span
+                  data-slate-leaf="true"
+                >
+                  <span
+                    data-slate-string="true"
+                  >
+                    Another day, another paragraph. I can't wait for tomorrow!
+                  </span>
+                </span>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
       <div
         class="jsx-2250570153 grid"
       >
