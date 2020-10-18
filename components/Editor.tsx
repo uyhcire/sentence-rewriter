@@ -41,7 +41,7 @@ export default function Editor(): JSX.Element {
           placeholder="Enter some plain text..."
           onKeyDown={(e) => {
             // @ts-expect-error
-            if (isHotkey("mod-'")(e)) {
+            if (isHotkey("mod+'")(e)) {
               const focusedPath = editor.selection.focus.path
               const focusedNode = Node.get(editor, focusedPath)
               const focusedNodeText = focusedNode.text
