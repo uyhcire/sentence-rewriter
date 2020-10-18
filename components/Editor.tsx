@@ -95,7 +95,7 @@ interface TextSpan {
   end: number
 }
 
-function getSpanOfSentenceAtCursor(
+export function getSpanOfSentenceAtCursor(
   text: string,
   cursorOffset: number
 ): TextSpan | null {
