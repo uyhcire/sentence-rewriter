@@ -26,9 +26,14 @@
     ]
   },
   "dependencies": {
+    "compromise": "^13.6.0",
+    "is-hotkey": "^0.1.6",
     "next": "latest",
     "react": "^16.13.1",
-    "react-dom": "^16.13.1"
+    "react-dom": "^16.13.1",
+    "slate": "^0.59.0",
+    "slate-history": "^0.59.0",
+    "slate-react": "^0.59.0"
   },
   "devDependencies": {
     "@testing-library/react": "^10.0.1",

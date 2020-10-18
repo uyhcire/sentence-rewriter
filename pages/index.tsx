@@ -1,4 +1,5 @@
 import Head from 'next/head'
+import Editor from '../components/Editor'
 
 export const Home = (): JSX.Element => (
   <div className="container">
@@ -8,21 +9,34 @@ export const Home = (): JSX.Element => (
     </Head>
 
     <main>
-      <h1 className="title">
-        Welcome to <a href="https://nextjs.org">Next.js!</a>
+      <h1 className="title" style={{ paddingBottom: 40 }}>
+        In Other Words 📎
       </h1>
 
-      <p className="description">
-        Get started by editing <code>pages/index.tsx</code>
+      <p>
+        Press{' '}
+        <strong>
+          <kbd>Command + Quote</kbd>
+        </strong>{' '}
+        to select a sentence
+        <br />
+        Press{' '}
+        <strong>
+          <kbd>Command + Enter</kbd>
+        </strong>{' '}
+        to rephrase it
       </p>
 
-      <button
-        onClick={() => {
-          window.alert('With typescript and Jest')
+      <div
+        style={{
+          width: '100%',
+          height: 500,
+          paddingTop: 50,
+          paddingBottom: 50,
         }}
       >
-        Test Button
-      </button>
+        <Editor />
+      </div>
 
       <div className="grid">
         <a href="https://nextjs.org/docs" className="card">
