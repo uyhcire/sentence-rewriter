@@ -10,7 +10,7 @@ export const Home = (): JSX.Element => (
 
     <main>
       <h1 className="title" style={{ paddingBottom: 40 }}>
-        In Other Words 📎
+        In Other Words 🖇️
       </h1>
 
       <p>
