@@ -29,8 +29,8 @@ export const Home = (): JSX.Element => (
 
       <div
         style={{
-          width: '100%',
-          height: 500,
+          width: 800,
+          height: 600,
           paddingTop: 50,
           paddingBottom: 50,
         }}
