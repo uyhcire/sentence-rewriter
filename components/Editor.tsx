@@ -39,7 +39,7 @@ export default function Editor(): JSX.Element {
         <Editable
           autoFocus={true}
           placeholder="Enter some plain text..."
-          onKeyDown={(e) => {
+          onKeyDown={async (e) => {
             // @ts-expect-error
             if (isHotkey("mod+'")(e)) {
               if (!editor.selection) {
@@ -50,6 +50,7 @@ export default function Editor(): JSX.Element {
               const focusedNode = Node.get(editor, focusedPath)
               const focusedNodeText = focusedNode.text
               if (typeof focusedNodeText !== 'string') {
+                // We can only rewrite plain text
                 return
               }
 
@@ -65,6 +66,52 @@ export default function Editor(): JSX.Element {
                 anchor: { path: focusedPath, offset: spanToSelect.start },
                 focus: { path: focusedPath, offset: spanToSelect.end },
               })
+            }
+            // @ts-expect-error
+            else if (isHotkey('mod+enter')(e)) {
+              if (!editor.selection) {
+                return
+              }
+
+              const focusedPath = editor.selection.focus.path
+              const focusedNode = Node.get(editor, focusedPath)
+              const focusedNodeText = focusedNode.text
+              if (typeof focusedNodeText !== 'string') {
+                // We can only rewrite plain text
+                return
+              }
+
+              const sentenceSpan = getSpanOfSentenceAtCursor(
+                focusedNodeText,
+                editor.selection.focus.offset
+              )
+              if (!sentenceSpan) {
+                return
+              }
+
+              if (
+                sentenceSpan.start !== editor.selection.anchor.offset ||
+                sentenceSpan.end !== editor.selection.focus.offset
+              ) {
+                // Current selection is not a sentence
+                return
+              }
+
+              const originalSentence = focusedNodeText.slice(
+                sentenceSpan.start,
+                sentenceSpan.end
+              )
+              const newPrefix = window.prompt('New prefix')
+              if (!newPrefix) {
+                return
+              }
+
+              const rewrittenSentence = await requestSentenceRewrite({
+                originalSentence,
+                newPrefix,
+              })
+
+              Transforms.insertText(editor, rewrittenSentence)
             }
           }}
         />
@@ -136,4 +183,31 @@ export function getSpanOfSentenceAtCursor(
   }
 
   return selectedSpan
+}
+
+async function requestSentenceRewrite({
+  originalSentence,
+  newPrefix,
+}: {
+  originalSentence: string
+  newPrefix: string
+}): Promise<string> {
+  const response = await fetch(
+    'https://sentence-rewriter.ngrok.io/rewrite-sentence',
+    {
+      method: 'POST',
+      mode: 'cors',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        originalSentence,
+        newPrefix,
+      }),
+    }
+  )
+
+  const responseJson = await response.json()
+  return responseJson['rewrittenSentence']
 }
