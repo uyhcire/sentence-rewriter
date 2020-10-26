@@ -42,6 +42,10 @@ export default function Editor(): JSX.Element {
           onKeyDown={(e) => {
             // @ts-expect-error
             if (isHotkey("mod+'")(e)) {
+              if (!editor.selection) {
+                return
+              }
+
               const focusedPath = editor.selection.focus.path
               const focusedNode = Node.get(editor, focusedPath)
               const focusedNodeText = focusedNode.text
@@ -53,6 +57,9 @@ export default function Editor(): JSX.Element {
                 focusedNodeText,
                 editor.selection.focus.offset
               )
+              if (!spanToSelect) {
+                return
+              }
 
               Transforms.select(editor, {
                 anchor: { path: focusedPath, offset: spanToSelect.start },
