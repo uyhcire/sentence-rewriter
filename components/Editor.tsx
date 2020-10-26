@@ -123,8 +123,8 @@ export default function Editor(): JSX.Element {
 function selectEndOfText(editor: ReactEditor, nodes: Array<Node>): void {
   const lastTopLevelNode = nodes[nodes.length - 1]
 
-  let textNode: Text
-  let textNodePath: Path
+  let textNode: Text | null = null
+  let textNodePath: Path | null = null
   for (const [_textNode, _textNodePath] of Node.texts(lastTopLevelNode, {
     reverse: true,
   })) {
@@ -132,6 +132,10 @@ function selectEndOfText(editor: ReactEditor, nodes: Array<Node>): void {
     textNodePath = _textNodePath
     // First generator result is the last node, so we're done
     break
+  }
+
+  if (!textNode || !textNodePath) {
+    return
   }
 
   const endPoint = {
@@ -160,16 +164,22 @@ export function getSpanOfSentenceAtCursor(
       trim: true,
       offset: true,
     })
-    .map(({ offset: { start, length } }) => ({
-      start,
-      end: start + length,
-    }))
+    .map(
+      ({
+        offset: { start, length },
+      }: {
+        offset: { start: number; length: number }
+      }) => ({
+        start,
+        end: start + length,
+      })
+    )
 
   if (sentenceSpans.length === 0) {
     return null
   }
 
-  let selectedSpan: TextSpan
+  let selectedSpan: TextSpan | null = null
   for (const span of sentenceSpans) {
     // If the cursor is inside a sentence, choose that sentence.
     // Otherwise, choose the sentence that the cursor comes right before.

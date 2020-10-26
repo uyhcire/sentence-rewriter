@@ -45,7 +45,7 @@ exports[`Home page matches snapshot 1`] = `
       </p>
       <div
         class="jsx-2250570153"
-        style="width: 100%; height: 500px; padding-top: 50px; padding-bottom: 50px;"
+        style="width: 800px; height: 600px; padding-top: 50px; padding-bottom: 50px;"
       >
         <div
           style="border: solid; border-color: lightblue; width: 100%; height: 100%; padding: 10px;"
