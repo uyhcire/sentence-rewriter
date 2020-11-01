@@ -7,9 +7,23 @@ import { withHistory } from 'slate-history'
 
 export default function Editor(): JSX.Element {
   const sampleText: Array<string> = [
-    "This is good. But that is bad. And it's important that you know the difference.",
+    'The activity of writing itself can have knowledge-transforming effects, since it allows humans to externalize their thinking in forms that are easier to reflect on and potentially rework. (source: Wikipedia)',
     '',
-    "Another day, another paragraph. I can't wait for tomorrow!",
+    '---',
+    '',
+    'SOME EDITS YOU CAN TRY:',
+    '',
+    // -> "We can transform our thinking by writing, because it allows us to externalize our thinking in forms that are easier to reflect on."
+    'We can transform',
+    '',
+    // -> "Because writing externalizes thinking, it can have knowledge-transforming effects."
+    'Because writing externalizes thinking',
+    '',
+    // -> "Writing enables better thinking, because it allows us to externalize our thinking in forms that are easier to reflect on."
+    'Writing enables better thinking, because',
+    '',
+    // -> "With writing, we can externalize our thinking in a form that is easier to reflect on, and potentially rework"
+    'With writing, we can externalize',
   ]
   const [value, setValue] = useState<Array<Node>>(
     sampleText.map((text) => ({ children: [{ text }] }))
