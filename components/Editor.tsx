@@ -101,7 +101,9 @@ export default function Editor(): JSX.Element {
                 sentenceSpan.start,
                 sentenceSpan.end
               )
-              const newPrefix = window.prompt('New prefix')
+              const newPrefix = window.prompt(
+                'How should the sentence start? Please enter a few words:'
+              )
               if (!newPrefix) {
                 return
               }
