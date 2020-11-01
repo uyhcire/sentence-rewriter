@@ -55,34 +55,9 @@ export default function Editor(): JSX.Element {
           placeholder="Enter some plain text..."
           onKeyDown={async (e) => {
             // @ts-expect-error
-            if (isHotkey("mod+'")(e)) {
-              if (!editor.selection) {
-                return
-              }
+            if (isHotkey('tab')(e)) {
+              e.preventDefault()
 
-              const focusedPath = editor.selection.focus.path
-              const focusedNode = Node.get(editor, focusedPath)
-              const focusedNodeText = focusedNode.text
-              if (typeof focusedNodeText !== 'string') {
-                // We can only rewrite plain text
-                return
-              }
-
-              const spanToSelect = getSpanOfSentenceAtCursor(
-                focusedNodeText,
-                editor.selection.focus.offset
-              )
-              if (!spanToSelect) {
-                return
-              }
-
-              Transforms.select(editor, {
-                anchor: { path: focusedPath, offset: spanToSelect.start },
-                focus: { path: focusedPath, offset: spanToSelect.end },
-              })
-            }
-            // @ts-expect-error
-            else if (isHotkey('mod+enter')(e)) {
               if (!editor.selection) {
                 return
               }
@@ -107,27 +82,30 @@ export default function Editor(): JSX.Element {
                 sentenceSpan.start !== editor.selection.anchor.offset ||
                 sentenceSpan.end !== editor.selection.focus.offset
               ) {
-                // Current selection is not a sentence
+                Transforms.select(editor, {
+                  anchor: { path: focusedPath, offset: sentenceSpan.start },
+                  focus: { path: focusedPath, offset: sentenceSpan.end },
+                })
                 return
+              } else {
+                const originalSentence = focusedNodeText.slice(
+                  sentenceSpan.start,
+                  sentenceSpan.end
+                )
+                const newPrefix = window.prompt(
+                  'How should the sentence start? Please enter a few words:'
+                )
+                if (!newPrefix) {
+                  return
+                }
+
+                const rewrittenSentence = await requestSentenceRewrite({
+                  originalSentence,
+                  newPrefix,
+                })
+
+                Transforms.insertText(editor, rewrittenSentence)
               }
-
-              const originalSentence = focusedNodeText.slice(
-                sentenceSpan.start,
-                sentenceSpan.end
-              )
-              const newPrefix = window.prompt(
-                'How should the sentence start? Please enter a few words:'
-              )
-              if (!newPrefix) {
-                return
-              }
-
-              const rewrittenSentence = await requestSentenceRewrite({
-                originalSentence,
-                newPrefix,
-              })
-
-              Transforms.insertText(editor, rewrittenSentence)
             }
           }}
         />

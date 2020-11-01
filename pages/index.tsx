@@ -16,15 +16,15 @@ export const Home = (): JSX.Element => (
       <p>
         Press{' '}
         <strong>
-          <kbd>Command + Quote</kbd>
+          <kbd>Tab</kbd>
         </strong>{' '}
         to select a sentence
         <br />
-        Press{' '}
+        Then{' '}
         <strong>
-          <kbd>Command + Enter</kbd>
+          <kbd>Tab</kbd>
         </strong>{' '}
-        to rephrase it
+        again to rephrase it
       </p>
 
       <div
